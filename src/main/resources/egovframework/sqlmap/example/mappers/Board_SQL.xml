@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main.service.impl.BoardMapper">
+	<resultMap id="BoardMap" type="main.service.BoardVO" />
+
+	<insert id="insertBoard">
+		insert into nboard
+		(unq,title,pass,name,content,hits,rdate)
+		values
+		(nboard_seq.nextval,#{title},#{pass},#{name},#{content},0,sysdate)
+	</insert>
+	<select id="selectBoardList" resultMap="BoardMap">
+	<![CDATA[
+		select b.* from (
+		select rownum rn,a.* from
+		(select
+		unq,title,pass,name,content,hits,to_char(rdate,'yyyy-mm-dd') rdate
+		from nboard order by unq desc) a) b
+		where rn >= 11 and rn <= 20
+	]]>
+	</select>
+</mapper>

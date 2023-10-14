@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper 
-	namespace="egovframework.example.sample.service.impl.CodeMapper">
-	<resultMap id="CodeMap"
-		type="egovframework.example.sample.service.CodeVO" />
+<mapper namespace="main.service.impl.CodeMapper">
+	<resultMap id="CodeMap" type="main.service.CodeVO" />
 
 	<insert id="insertCode">
-		insert into codes (code,gid,name) values (codes_seq.nextval,#{gid},#{name})
+		insert into codes (code,gid,name) values
+		(codes_seq.nextval,#{gid},#{name})
 	</insert>
-	
-	
+
+
 	<select id="selectCodesList" resultMap="CodeMap">
-		select code,decode(gid,'1','업무','취미') gid,name
-		from codes order by gid,code 
+		select
+		code,decode(gid,'1','업무','취미') gid,name
+		from codes order by gid,code
 	</select>
 
 	<select id="selectCodesCount" resultType="int">
-		select count(*) from codes
+		select count(*) from
+		codes
 	</select>
-	
+
 	<delete id="deleteCodes">
-		delete from codes where code = #{code}	
+		delete from codes where code = #{code}
 	</delete>
 
 	<select id="selectCodesDetail" resultMap="CodeMap">
-		select code,gid,name from codes where code = #{code}	
+		select code,gid,name
+		from codes where code = #{code}
 	</select>
-	
+
 	<update id="updateCodes">
-		update codes set gid=#{gid},name=#{name} where code = ${code}	
+		update codes set gid=#{gid},name=#{name} where code =
+		${code}
 	</update>
 </mapper>
