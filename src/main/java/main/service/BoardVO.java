@@ -8,6 +8,44 @@ public class BoardVO {
 	private String content;
 	private int hits;
 	private String rdate;
+	private int viewPg = 1;
+	private int beginIdx = 1;
+	private int endIdx = 5;
+
+	private String searchGbn;
+	private String searchText = "";
+
+	public String getSearchGbn() {
+		return searchGbn;
+	}
+
+	public void setSearchGbn(String searchGbn) {
+		this.searchGbn = searchGbn;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public int getBeginIdx() {
+		return beginIdx;
+	}
+
+	public void setBeginIdx(int beginIdx) {
+		this.beginIdx = beginIdx;
+	}
+
+	public int getEndIdx() {
+		return endIdx;
+	}
+
+	public void setEndIdx(int endIdx) {
+		this.endIdx = endIdx;
+	}
 
 	public int getUnq() {
 		return unq;
@@ -63,6 +101,14 @@ public class BoardVO {
 
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
+	}
+
+	public int getViewPg() {
+		return viewPg;
+	}
+
+	public void setViewPg(int viewPg) {
+		this.viewPg = viewPg;
 	}
 
 }

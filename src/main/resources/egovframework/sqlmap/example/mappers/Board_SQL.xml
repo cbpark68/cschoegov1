@@ -10,13 +10,51 @@
 		(nboard_seq.nextval,#{title},#{pass},#{name},#{content},0,sysdate)
 	</insert>
 	<select id="selectBoardList" resultMap="BoardMap">
-	<![CDATA[
 		select b.* from (
-		select rownum rn,a.* from
+		select
+		rownum rn,a.* from
 		(select
 		unq,title,pass,name,content,hits,to_char(rdate,'yyyy-mm-dd') rdate
-		from nboard order by unq desc) a) b
-		where rn >= 11 and rn <= 20
-	]]>
+		from nboard where 1=1
+		<if test="searchGbn != null and searchText != ''">
+			<choose>
+				<when test="searchGbn == 'title'">
+					and title like '%' || #{searchText} || '%'
+				</when>
+				<when test="searchGbn == 'content'">
+					and content like '%' || #{searchText} || '%'
+				</when>
+				<when test="searchGbn == 'name'">
+					and name like '%' || #{searchText} || '%'
+				</when>
+			</choose>
+		</if>
+		order by unq desc) a) b
+		where rn &gt;= #{beginIdx} and rn &lt;= #{endIdx}
 	</select>
+	<select id="selectBoardTotal" resultType="int">
+		select count(*) cnt
+		from nboard where 1=1
+		<if test="searchGbn != null and searchText != ''">
+			<choose>
+				<when test="searchGbn == 'title'">
+					and title like '%' || #{searchText} || '%'
+				</when>
+				<when test="searchGbn == 'content'">
+					and content like '%' || #{searchText} || '%'
+				</when>
+				<when test="searchGbn == 'name'">
+					and name like '%' || #{searchText} || '%'
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="selectBoardDetail" resultMap="BoardMap">
+		select unq,title,pass,name,content,hits,to_char(rdate,'yyyy-mm-dd') rdate from nboard where unq = #{unq}	
+	</select>
+	
+	<update id="updateBoardHits">
+		update nboard set hits = hits + 1 where unq = #{unq}	
+	</update>
 </mapper>

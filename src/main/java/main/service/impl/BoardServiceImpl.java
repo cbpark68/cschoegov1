@@ -29,4 +29,19 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.selectBoardList(vo);
 	}
 
+	@Override
+	public int selectBoardTotal(BoardVO vo) throws Exception {
+		return boardMapper.selectBoardTotal(vo);
+	}
+
+	@Override
+	public BoardVO selectBoardDetail(int unq) throws Exception {
+		return boardMapper.selectBoardDetail(unq);
+	}
+
+	@Override
+	public int updateBoardHits(int unq) throws Exception {
+		return boardMapper.updateBoardHits(unq);
+	}
+
 }
