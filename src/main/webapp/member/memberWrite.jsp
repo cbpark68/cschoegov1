@@ -16,6 +16,52 @@
 			changeYear : true
 		});
 
+		$("#btnZipcode").click(function() {
+			var url = "post1.do";
+			window.open(url,"zipcode","width=500,height=100");
+/* 			$.ajax({
+				type : "POST",
+				data : "userid=" + userid,
+				url : "post1.do",
+				dataType : "text",
+				success : function(rs) {
+					if (rs == "success") {
+						alert("사용가능한 아이디입니다");
+					} else {
+						alert("사용할수 없는 아이디입니다");
+					}
+				},
+				error : function() {
+					alert("오류발생");
+				}
+			});
+ */		});
+
+		$("#btnIdChk").click(function() {
+			var userid = $.trim($("#userid").val());
+			if (userid == "") {
+				alert("아이디를 입력하세요");
+				$("#userid").focus();
+				return false;
+			}
+			$.ajax({
+				type : "POST",
+				data : "userid=" + userid,
+				url : "idCheck.do",
+				dataType : "text",
+				success : function(rs) {
+					if (rs == "success") {
+						alert("사용가능한 아이디입니다");
+					} else {
+						alert("사용할수 없는 아이디입니다");
+					}
+				},
+				error : function() {
+					alert("오류발생");
+				}
+			});
+		});
+
 		$("#btnSubmit").click(function() {
 			var userid = $("#userid").val();
 			var pass = $("#pass").val();
@@ -53,7 +99,7 @@
 				url : "memberWriteSave.do",
 				dataType : "text",
 				success : function(rs) {
-					if (rs == "ok") {
+					if (rs == "success") {
 						alert("저장완료");
 						location = "loginWrite.do";
 					} else {
@@ -152,7 +198,7 @@ th, td {
 			<tr>
 				<th>주소</th>
 				<td><input type="text" name="zipcode" id="zipcode" />
-					<button type="button">우편번호</button> <br /> <input type="text"
+					<button type="button" id="btnZipcode">우편번호</button> <br /> <input type="text"
 					name="addr" id="addr" /></td>
 			</tr>
 		</table>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main.service.impl.MemberMapper">
+	<resultMap id="MemberMap" type="main.service.MemberVO" />
+
+	<insert id="insertMember">
+		insert into member
+		(userid,pass,name,gender,birth,phone,zipcode,addr)
+		values
+		(#{userid},#{pass},#{name},#{gender},#{birth},#{phone},#{zipcode},#{addr})
+	</insert>
+	
+	<select id="selectMemberIdCheck" resultType="int">
+		select count(*) cnt from member where userid = #{userid}	
+	</select>
+	
+	<select id="selectPostList" resultType="egovMap">
+		select '['||z01||'] '||z02||' '||z04||' '||z09||' '||z16 addr from zipcode where z09 like '%'||#{dong}||'%'
+	</select>
+</mapper>

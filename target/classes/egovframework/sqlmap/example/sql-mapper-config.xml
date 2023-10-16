@@ -9,5 +9,6 @@
 		<typeAlias alias="deptVO" type="main.service.DeptVO"/>
 		<typeAlias alias="codeVO" type="main.service.CodeVO"/>
 		<typeAlias alias="BoardVO" type="main.service.BoardVO"/>
+		<typeAlias alias="MemberVO" type="main.service.MemberVO"/>
     </typeAliases>
 </configuration>
