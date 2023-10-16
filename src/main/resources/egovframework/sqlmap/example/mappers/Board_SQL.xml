@@ -30,7 +30,8 @@
 			</choose>
 		</if>
 		order by unq desc) a) b
-		where rn &gt;= #{beginIdx} and rn &lt;= #{endIdx}
+		where rn &gt;= #{beginIdx} and rn &lt;=
+		#{endIdx}
 	</select>
 	<select id="selectBoardTotal" resultType="int">
 		select count(*) cnt
@@ -49,12 +50,28 @@
 			</choose>
 		</if>
 	</select>
-	
+
 	<select id="selectBoardDetail" resultMap="BoardMap">
-		select unq,title,pass,name,content,hits,to_char(rdate,'yyyy-mm-dd') rdate from nboard where unq = #{unq}	
+		select
+		unq,title,pass,name,content,hits,to_char(rdate,'yyyy-mm-dd') rdate
+		from nboard where unq = #{unq}
+	</select>
+
+	<update id="updateBoardHits">
+		update nboard set hits = hits + 1 where unq = #{unq}
+	</update>
+
+	<update id="updateBoard">
+		update nboard set
+		title=#{title},name=#{name},content=#{content} where
+		unq = #{unq} and pass = #{pass}
+	</update>
+	
+	<select id="selectBoardPass" resultType="int">
+		select count(*) cnt from nboard where unq = #{unq} and pass = #{pass}	
 	</select>
 	
-	<update id="updateBoardHits">
-		update nboard set hits = hits + 1 where unq = #{unq}	
-	</update>
+	<delete id="deleteBoard">
+		delete from nboard where unq = #{unq} and pass = #{pass}	
+	</delete>
 </mapper>

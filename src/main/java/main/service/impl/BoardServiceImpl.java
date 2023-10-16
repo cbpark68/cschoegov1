@@ -44,4 +44,19 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.updateBoardHits(unq);
 	}
 
+	@Override
+	public int updateBoard(BoardVO vo) throws Exception {
+		return boardMapper.updateBoard(vo);
+	}
+
+	@Override
+	public int selectBoardPass(BoardVO vo) throws Exception {
+		return boardMapper.selectBoardPass(vo);
+	}
+
+	@Override
+	public int deleteBoard(BoardVO vo) throws Exception {
+		return boardMapper.deleteBoard(vo);
+	}
+
 }

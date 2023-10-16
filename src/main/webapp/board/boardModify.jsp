@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%-- <% pageContext.setAttribute("newline", "\n"); %>
-<c:set var="content" value="${fn:replace(bvo.content,newline,'<br/>')}"/>
- --%><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -62,12 +59,14 @@ textarea {
 		$.ajax({
 			type : "POST",
 			data : formData,
-			url : "boardWriteSave.do",
+			url : "boardModifySave.do",
 			dataType : "text",
 			success : function(data) {
-				if (data == "ok") {
+				if (data == "success") {
 					alert("저장완료");
 					location = "boardList.do";
+				}else if(data == "passerror"){
+					alert("비번불일치");
 				} else {
 					alert("저장오류");
 				}
@@ -80,6 +79,7 @@ textarea {
 </script>
 <body>
 	<form id="frm">
+		<input type="hidden" name="unq" value="${bvo.unq}"/>
 		<table>
 			<caption>게시판</caption>
 			<colgroup>
@@ -88,25 +88,24 @@ textarea {
 			</colgroup>
 			<tr>
 				<th><label for="title">제목</label></th>
-				<td>${bvo.title}</td>
+				<td><input type="text" name="title" id="title" class="input1" value="${bvo.title}"/></td>
+			</tr>
+			<tr>
+				<th>비번</th>
+				<td><input type="password" name="pass" id="pass" /></td>
 			</tr>
 			<tr>
 				<th>글쓴이</th>
-				<td>${bvo.name}</td>
+				<td><input type="text" name="name" id="name" value="${bvo.name}"/></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td height="50px">${bvo.content}</td>
-			</tr>
-			<tr>
-				<th>등록일</th>
-				<td>${bvo.rdate}</td>
+				<td><textarea name="content" id="content">${bvo.content}</textarea></td>
 			</tr>
 			<tr>
 				<th colspan="2">
-					<button type="button" onclick="location='boardList.do';">목록</button>
-					<button type="button" onclick="location='boardModify.do?unq=${bvo.unq}';">수정</button>
-					<button type="button" onclick="location='passWrite.do?unq=${bvo.unq}';">삭제</button>
+					<button type="submit" onclick="fn_submit();return false;">저장</button>
+					<button type="reset">취소</button>
 				</th>
 			</tr>
 		</table>

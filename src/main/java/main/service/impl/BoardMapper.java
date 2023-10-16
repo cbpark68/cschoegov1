@@ -19,4 +19,10 @@ public interface BoardMapper {
 
 	int updateBoardHits(int unq);
 
+	int updateBoard(BoardVO vo);
+
+	int selectBoardPass(BoardVO vo);
+
+	int deleteBoard(BoardVO vo);
+
 }

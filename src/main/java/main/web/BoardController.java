@@ -57,14 +57,57 @@ public class BoardController {
 		map.addAttribute("list", list);
 		return "board/boardList";
 	}
-	
+
 	@RequestMapping("/boardDetail.do")
-	public String boardDetail(int unq,ModelMap map) throws Exception{
+	public String boardDetail(int unq, ModelMap map) throws Exception {
 		boardService.updateBoardHits(unq);
 		BoardVO vo = boardService.selectBoardDetail(unq);
 		String content = vo.getContent();
 		vo.setContent(content.replace("\n", "<br/>"));
-		map.addAttribute("bvo",vo);
+		map.addAttribute("bvo", vo);
 		return "board/boardDetail";
+	}
+
+	@RequestMapping("/boardModify.do")
+	public String boardModify(int unq, ModelMap map) throws Exception {
+		BoardVO vo = boardService.selectBoardDetail(unq);
+		map.addAttribute("bvo", vo);
+		return "board/boardModify";
+	}
+
+	@RequestMapping("/boardModifySave.do")
+	@ResponseBody
+	public String boardModifySave(BoardVO vo) throws Exception {
+		String rs = "error";
+		int cnt = boardService.selectBoardPass(vo);
+		if (cnt == 1) {
+			if(boardService.updateBoard(vo) == 1) {
+				rs = "success";
+			}
+		}else {
+			rs = "passerror";
+		}
+		return  rs;
+	}
+	
+	@RequestMapping("/passWrite.do")
+	public String passWrite(int unq,ModelMap map) {
+		map.addAttribute("unq",unq);
+		return "board/passWrite";
+	}
+	
+	@RequestMapping("/boardDelete.do")
+	@ResponseBody
+	public String boardDelete(BoardVO vo) throws Exception{
+		String rs = "error";
+		int cnt = boardService.selectBoardPass(vo);
+		if (cnt == 1) {
+			if(boardService.deleteBoard(vo) == 1) {
+				rs = "success";
+			}
+		}else {
+			rs = "passerror";
+		}
+		return  rs;
 	}
 }
