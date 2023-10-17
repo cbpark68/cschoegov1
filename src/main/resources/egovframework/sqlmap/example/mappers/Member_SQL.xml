@@ -17,4 +17,8 @@
 	<select id="selectPostList" resultType="egovMap">
 		select '['||z01||'] '||z02||' '||z04||' '||z09||' '||z16 addr from zipcode where z09 like '%'||#{dong}||'%'
 	</select>
+	
+	<select id="selectMemberCnt" resultType="int">
+		select count(*) cnt from member where userid = #{userid} and pass = #{pass}	
+	</select>
 </mapper>

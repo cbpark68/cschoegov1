@@ -15,4 +15,6 @@ public interface MemberMapper {
 
 	List<?> selectPostList(String dong);
 
+	int selectMemberCnt(MemberVO vo);
+
 }

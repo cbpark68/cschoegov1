@@ -19,23 +19,7 @@
 		$("#btnZipcode").click(function() {
 			var url = "post1.do";
 			window.open(url,"zipcode","width=500,height=100");
-/* 			$.ajax({
-				type : "POST",
-				data : "userid=" + userid,
-				url : "post1.do",
-				dataType : "text",
-				success : function(rs) {
-					if (rs == "success") {
-						alert("사용가능한 아이디입니다");
-					} else {
-						alert("사용할수 없는 아이디입니다");
-					}
-				},
-				error : function() {
-					alert("오류발생");
-				}
-			});
- */		});
+		});
 
 		$("#btnIdChk").click(function() {
 			var userid = $.trim($("#userid").val());
@@ -101,7 +85,7 @@
 				success : function(rs) {
 					if (rs == "success") {
 						alert("저장완료");
-						location = "loginWrite.do";
+						location = "boardList.do";
 					} else {
 						alert("저장오류");
 					}
@@ -150,21 +134,8 @@ th, td {
 }
 </style>
 <body>
-	<table>
-		<colgroup>
-			<col width="25%" />
-			<col width="25%" />
-			<col width="25%" />
-			<col width="25%" />
-		</colgroup>
-		<tr>
-			<th>홈</th>
-			<th><a href="/cschoegov1/boardList.do">게시판</a></th>
-			<th><a href="/cschoegov1/memberWrite.do">회원가입</a></th>
-			<th><a href="/cschoegov1/loginWrite.do">로그인</a></th>
-		</tr>
-	</table>
-	<form id="frm">
+<%@ include file="../include/topMenu.jsp" %>
+	<form id="frm" name="frm">
 		<table>
 			<caption>회원관리</caption>
 			<tr>

@@ -29,4 +29,9 @@ public class MemberServiceImpl implements MemberService{
 		return memberMapper.selectPostList(dong);
 	}
 
+	@Override
+	public int selectMemberCnt(MemberVO vo) throws Exception {
+		return memberMapper.selectMemberCnt(vo);
+	}
+
 }

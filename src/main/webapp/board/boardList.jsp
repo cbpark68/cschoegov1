@@ -57,6 +57,7 @@ textarea {
 }
 </style>
 <body>
+<%@ include file="../include/topMenu.jsp" %>
 	<div class="div1">
 		<div class="div2" style="font-size: 16px">게시판</div>
 		<div style="text-align: left; float: left">Total : ${tot}</div>

@@ -3,6 +3,7 @@ package main.web;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -53,5 +54,27 @@ public class MemberController {
 		List<?> list = memberService.selectPostList(dong);
 		map.addAttribute("list",list);
 		return "member/post2";
+	}
+	
+	@RequestMapping("/loginWrite.do")
+	public String loginWrite() {
+		return "member/loginWrite";
+	}
+	
+	@RequestMapping("/loginWriteSub.do")
+	@ResponseBody
+	public String loginWriteSub(MemberVO vo,HttpSession session) throws Exception{
+		String rtn = "error";
+		int rs = memberService.selectMemberCnt(vo);
+		if(rs == 1)
+			session.setAttribute("sessionUserId", vo.getUserid());
+			rtn = "success";
+		return rtn;
+	}
+
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session.removeAttribute("sessionUserId");
+		return "member/loginWrite";
 	}
 }
